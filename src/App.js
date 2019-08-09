@@ -33,6 +33,11 @@ const App = () => {
 
   return (
     <div className="App">
+      {/**
+        Need to replace this Form with Material UI Search Bar. 
+        Using '@material-ui/core/InputBase' for input base 
+        Using '@material-ui/icons/Search' for search icon]
+      **/}
       <form onSubmit={getSearch} className="searchForm">
         <input className="searchBar" type="text" value={search} onChange={updateSearch} />
         <button className="searchButton" type="submit">
