@@ -1,0 +1,15 @@
+.root {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 300px;
+}
+
+.image {
+  padding-top: 10px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}

@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
+import "./App.css";
 import axios from "axios";
 import Recipe from "./components/Recipes";
+import SearchBar from "./components/SearchBar";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
 
 import "./App.css";
 const App = () => {
@@ -8,45 +12,32 @@ const App = () => {
   const appKey = "3e8728e8f60b5def821520f83d1f2e1c";
 
   const [recipes, setRecipes] = useState([]);
-  const [search, setSearch] = useState("");
+
   const [query, setQuery] = useState("chicken");
+
+  const getRecipes = async () => {
+    const response = await axios.get(`https://api.edamam.com/search?q=${query}&app_id=${appID}&app_key=${appKey}&from=0&to=12`);
+    const data = response.data;
+    setRecipes(data.hits);
+    console.log(data.hits);
+  };
 
   useEffect(() => {
     getRecipes();
   }, [query]);
 
-  const getRecipes = async () => {
-    const response = await axios.get(`https://api.edamam.com/search?q=${query}&app_id=${appID}&app_key=${appKey}&from=0&to=3&calories=591-722&health=alcohol-free`);
-    const data = response.data;
-    setRecipes(data.hits);
-  };
-
-  const updateSearch = e => {
-    setSearch(e.target.value);
-  };
-
-  const getSearch = e => {
-    e.preventDefault();
-    setQuery(search);
-    setSearch("");
-  };
-
   return (
     <div className="App">
-      {/**
-        Need to replace this Form with Material UI Search Bar. 
-        Using '@material-ui/core/InputBase' for input base 
-        Using '@material-ui/icons/Search' for search icon]
-      **/}
-      <form onSubmit={getSearch} className="searchForm">
-        <input className="searchBar" type="text" value={search} onChange={updateSearch} />
-        <button className="searchButton" type="submit">
-          Search
-        </button>
-      </form>
-      {recipes.map(recipe => (
-        <Recipe key={recipe.recipe.label} title={recipe.recipe.label} calories={recipe.recipe.calories} image={recipe.recipe.image} ingredients={recipe.recipe.ingredients} />
-      ))}
+      <Container maxWidth="sm">
+        <SearchBar className="SearchForm" setQuery={setQuery} />
+      </Container>
+      <Container maxWidth="lg">
+        <div className="GridFlex">
+          {recipes.map(recipe => (
+            <Recipe key={recipe.recipe.label} recipe={recipe} />
+          ))}
+        </div>
+      </Container>
     </div>
   );
 };
