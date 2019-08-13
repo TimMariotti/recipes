@@ -28,8 +28,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <Container maxWidth="sm">
-        <SearchBar className="SearchForm" setQuery={setQuery} />
+      <Container maxWidth="sm" className="SearchForm">
+        <SearchBar setQuery={setQuery} />
       </Container>
       <Container maxWidth="lg">
         <div className="GridFlex">

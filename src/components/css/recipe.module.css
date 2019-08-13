@@ -8,7 +8,11 @@
 }
 
 .title {
+  width: 100%;
   height: 50px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .calories {
